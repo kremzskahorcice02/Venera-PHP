@@ -1,65 +1,87 @@
-let bg = document.getElementById('bg');
+let bg = document.getElementById('stars');
 let venus = document.getElementById('venus');
-let lod = document.getElementById('lod');
+let lod = document.getElementById('boat');
 let mountain = document.getElementById('mountain');
 let road = document.getElementById('road');
 
+var lastScrollTop = 0;
+
+const body = document.querySelector("body");
+let eventPopup = document.getElementById("events-tag");
+let albumPopup = document.getElementById("info-popup");
+
+// close nad open menu
+
+let navDiv = document.getElementById("top");
+let navMenu = document.getElementById("navigation");
+let menuIcon = document.getElementById('navigation-icon');
+let about = document.getElementById('about-tag');
+
+
 window.addEventListener('scroll', function() {
-    var value = window.scrollY;
+    var value = window.pageYOffset || document.documentElement.scrollTop;
 
     bg.style.top = value * 0.5 + 'px';
     venus.style.top = value * 0.5 + 'px';
     lod.style.left = value * 0.7 + 'px';
     lod.style.top = value * 0.7 + 'px';
+    console.log(value);
+    if (value > lastScrollTop) {
+        lod.src="../images/lod.png";
+    } else if (value < lastScrollTop) {
+        lod.src="../images/lod-reversed.png";
+    } // else was horizontal scroll
+    lastScrollTop = value <= 0 ? 0 : value; // For Mobile or negative scrolling
+
     mountain.style.top = value * 0.15 + 'px';
     road.style.top = value * 0.2 + 'px';
     text.style.top = value * 0.8 + 'px';
+
+
+    var navDivPos = navDiv.scrollTop;
+    var aboutPos = about.scrollTop;
 })
 
-$(window).on("load",function() {
-    $(window).scroll(function() {
-        var windowBottom = $(this).scrollTop() + $(this).innerHeight();
-        $(".fade").each(function() {
-            /* Check the location of each desired element */
-            var objectBottom = $(this).offset().top + $(this).outerHeight();
-
-            /* If the element is completely within bounds of the window, fade it in */
-            if (objectBottom < windowBottom) { //object comes into view (scrolling down)
-                if ($(this).css("opacity")==0) {$(this).fadeTo(400,1);}
-            }
-        });
-    }).scroll(); //invoke scroll-handler on page-load
-});
-
-
-// Get the button:
-let mybutton = document.getElementById("myBtn");
-mybutton.addEventListener('click', function() {topFunction(), false});
-
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-    const divAbout = document.getElementById('top');
-    let top = divAbout.offsetTop;
-    let height = divAbout.offsetHeight;
-    let bottom = top + height;
-    if (document.body.scrollTop > bottom || document.documentElement.scrollTop > bottom) {
-        mybutton.style.display = "block";
+function handleMenu() {
+    if (navMenu.classList.contains('navMenu-open')) {
+        navDiv.classList.remove('navDiv-open');
+        navMenu.classList.remove('navMenu-open');
+        menuIcon.src = "../images/menu.svg";
     } else {
-        mybutton.style.display = "none";
+        navDiv.classList.add('navDiv-open');
+        navMenu.classList.add('navMenu-open')
+        menuIcon.src = "../images/close.svg";
     }
 }
 
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-    const divAbout = document.getElementById('top');
-    let top = divAbout.offsetTop;
-    document.body.scrollTop = top; // For Safari
-    document.documentElement.scrollTop = top; // For Chrome, Firefox, IE and Opera
+//closing and opening popup
+
+
+function showEventPopup() {
+    eventPopup.style.visibility = "visible";
+    eventPopup.style.opacity = 1;
 }
 
-// events showing functions
+function closeEventPopup() {
+    eventPopup.style.visibility = "hidden";
+    eventPopup.style.opacity = 0;
+    document.body.style.position = '';
+    document.body.style.top = '';
+}
+
+function showAlbumPopup() {
+    albumPopup.style.visibility = "visible";
+    albumPopup.style.opacity = 1;
+}
+
+function closeAlbumPopup() {
+    albumPopup.style.visibility = "hidden";
+    albumPopup.style.opacity = 0;
+    document.body.style.position = '';
+    document.body.style.top = '';
+}
+
+// events rendering functions
 
 function showPreviousEvents() {
     document.getElementById("futureEvents").style.display = "none";

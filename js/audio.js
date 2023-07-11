@@ -24,12 +24,12 @@ function loadSong(song) {
 
 function playSong() {
   audioPlayer.play();
-  playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+  playPauseButton.innerHTML = '<img src="../images/pause.svg" alt="pause icon">';
 }
 
 function pauseSong() {
   audioPlayer.pause();
-  playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+  playPauseButton.innerHTML = '<img src="../images/play.svg" alt="pause icon">';
 }
 
 // Get the current time and duration elements

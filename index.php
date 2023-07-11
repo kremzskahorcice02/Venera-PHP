@@ -1,50 +1,32 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venera</title>
-    <link rel="icon" type="image/x-icon" href="images/icon.png">
-    <link rel="stylesheet" href="styles/style.css"/>
-</head>
-<body>
-<section>
-    <img class="stars" src="images/stars.jpg" alt="Starry night" id="bg">
-    <img class="lod" src="images/lod.png" alt="" id="lod">
-    <img class="venus" src="images/venus.png" alt="" id="venus">
-    <img class="mountain" src="images/mountain.png" alt="" id="mountain">
-    <img class="road" src="images/road.png" alt="" id="road">
-    <h1 id="text">Venera</h1>
-</section>
-<div id="top" class="navDiv">
-    <nav class="navMenu">
-        <a href="#about-tag">O nás</a>
-        <a href="#music-tag">Hudba</a>
-        <a href="#events-tag">Akce</a>
-        <a class="l" href="#contact-tag">Kontakt</a>
-        <div class="dot"></div>
-    </nav>
-</div>
-<div id="events-tag" class="overlay-events">
-    <div class="popup-events">
-        <a class="close" href="#about-tag">&times;</a>
+<?php 
+    include 'includes/autoloader.inc.php';
+    include ("header.html")
+?>
+<div id="events-tag" class="events-overlay">
+    <div class="events-popup">
+        <span class="events-close" onclick="closeEventPopup()">&times;</span>
         <div class="events-buttons">
             <p onclick="showPreviousEvents()">uplynulé</p>
             <p onclick="showFutureEvents()">nadcházející</p>
         </div>
-        <div id="previousEvents">
-            <p class="events-list" th:each="event : ${eventsPrevious}" th:text="|${event.date} ${event.city} - ${event.place} + ${event.otherArtists}|"></p>
+        <div id="previousEvents" class="events-info">
+            <?php
+                $events = new EventView();
+                $events -> showPreviousEvents();
+            ?>
         </div>
-        <div id="futureEvents">
-            <div th:if="${!eventsFuture.isEmpty()}" class="events-info">
-                <p class="events-list" th:each="event : ${eventsFuture}"><span th:text="${event.date}"></span> <span th:text="${event.city}"></span> - <span th:text="${event.place}"></span></p>
-            </div>
-            <div id="" th:unless="${!eventsFuture.isEmpty()}" class="events-none">
-                <img th:src="@{images/sadface.jpg}" alt="Sad lady drawing">
-                <p>Je nám líto, ale momentálně nemáme naplánované jiné akce.<br>
+        <div id="futureEvents" class="events-info">
+            <?php
+                if (!$events -> showFutureEvents()) { 
+            ?>
+                <div class="events-none">
+                    <img class="events-none-img" src="images/sadface.jpg" alt="Sad lady drawing">
+                    <p class="events-none-text">Je nám líto, ale momentálně nemáme naplánované jiné akce.<br>
                     Pokud byste se s námi chtěli na nějaké domluvit, kontaktujte nás.</p>
-            </div>
+                </div>     
+            <?php
+                }
+            ?>
         </div>
     </div>
 </div>
@@ -57,10 +39,10 @@
     </div>
 </div>
 <div id="music-tag" class="music">
-    <a class="info-href" href="#info-popup"><img class="info-img" src="images/info.svg" alt="info icon"></a>
-    <div id="info-popup" class="overlay-music">
-        <div class="popup-music">
-            <a class="close" href="#music-tag">&times;</a>
+    <span class="info-icon" onclick="showAlbumPopup()"><img class="info-img" src="images/info.svg" alt="info icon"></span>
+    <div id="info-popup" class="music-overlay">
+        <div class="music-popup">
+            <span class="music-close" onclick="closeAlbumPopup()">&times;</span>
             <h3>tak blízko od sebe</h3>
             <img src="images/cd.jpg" alt="Album Cover">
             <ol>
@@ -85,6 +67,7 @@
         <img class="music-slide-img" src="images/cd-cut.jpg" alt="Album cover">
         <div class="music-slide-player">
             <audio></audio>
+            <p class="music-slide-player_title" id="song-title"></p>
             <div class="music-slide-player_buttons">
                 <button id="previous-btn"><img src="images/left-arr.svg" alt="left arrow button"></button>
                 <button id="play-pause-btn"><img src="images/play.svg" alt="play button"></button>
@@ -98,22 +81,33 @@
                     <span id="duration">0:00</span>
                 </p>
             </div>
-            <p class="music-slide-player_title" id="song-title"></p>
         </div>
     </div>
     <p id="music-album_name">tak blízko od sebe</p>
+    <p class="music-review" style="text-align: center;">„Českobudějovická kapela Venera na svém prvním albu z roku 2020 servíruje 
+            vybrané pochoutky současného pojetí post-hardcore, grunge, space rockové 
+            scény. Zároveň nezaměnitelným vokálem Tomáše "Čerta" Zadražila dělá z 
+            téhle party ostřílených muzikantů unikátní zjevení na tuzemské kluvobé 
+            scéně. Přirovnání k <span>HUM, Quicksand, Deftones či Smashing Pumpkins</span> je 
+            namístě jen do chvíle, než vás pohltí obrazotvorný svět vokálních obratů 
+            v českém jazyce, který funguje zároveň i jako nezaměnitelné poznávací 
+            znamení. Amákovo Golden Hive Studios, kde bylo album natočeno , podtrhuje dynamiku 
+            kytarových stěn skloubenou s dynamikou rytmiky v jeden celek. Byť přirovnání 
+            může být návodem, Venera stejně tvoří s vlastní originální razancí, kterou 
+            podtrhuje český jazyk.“<span class="author">- Stanislav Polata</span></p>
 </div>
 <div id="contact-tag" class="contact">
+<div>
     <h2 class="contact-title">Kontakt</h2>
     <p class="contact-text">
         +420 703 588 863<br>
         veneraband@email.cz
     </p>
     <div class="contact-text-socials">
-        <a href="https://www.facebook.com/venera9?locale=id_ID"><img src="images/facebook.svg" alt="Facebook icon" target="_blank"></a>
+        <a href="https://www.facebook.com/venera9?locale=id_ID" target="_blank"><img src="images/facebook.svg" alt="Facebook icon"></a>
         <a href="https://www.instagram.com/venera_cz/?fbclid=IwAR0HCxEuxcHFPkLUhb22eskJFMcJ4_tj_MldZYwSMn5AjYTptCVbBaW5liQ" target="_blank"><img src="images/instagram.svg" alt="Instagram icon"></a>
-        <a href="https://open.spotify.com/artist/7iYCpYd5LwqT3XqW7HmIUq"><img src="images/spotify.svg" alt="Spotify icon" target="_blank"></a>
-        <a href="https://venera9cz.bandcamp.com/album/tak-bl-zko-od-sebe"><img src="images/bandcamp.svg" alt="Bandcamp icon" target="_blank"></a>
+        <a href="https://open.spotify.com/artist/7iYCpYd5LwqT3XqW7HmIUq" target="_blank"><img src="images/spotify.svg" alt="Spotify icon"></a>
+        <a href="https://venera9cz.bandcamp.com/album/tak-bl-zko-od-sebe" target="_blank"><img src="images/bandcamp.svg" alt="Bandcamp icon"></a>
     </div>
 </div>
 <p class="credits">&#169; Venera, 2023</p>
