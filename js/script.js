@@ -36,11 +36,14 @@ window.addEventListener('scroll', function() {
     mountain.style.top = value * 0.15 + 'px';
     road.style.top = value * 0.2 + 'px';
     text.style.top = value * 0.8 + 'px';
-
-
-    var navDivPos = navDiv.scrollTop;
-    var aboutPos = about.scrollTop;
 })
+
+document.querySelectorAll('nav a').forEach(element => element.addEventListener('click', () => {
+    navDiv.classList.remove('navDiv-open');
+    navMenu.classList.remove('navMenu-open');
+    menuIcon.src = "../images/menu.svg";
+ })
+);
 
 function handleMenu() {
     if (navMenu.classList.contains('navMenu-open')) {
@@ -58,11 +61,13 @@ function handleMenu() {
 
 
 function showEventPopup() {
+    navDiv.style.display = "none";
     eventPopup.style.visibility = "visible";
     eventPopup.style.opacity = 1;
 }
 
 function closeEventPopup() {
+    navDiv.style.display = "flex";
     eventPopup.style.visibility = "hidden";
     eventPopup.style.opacity = 0;
     document.body.style.position = '';
@@ -70,11 +75,13 @@ function closeEventPopup() {
 }
 
 function showAlbumPopup() {
+    navDiv.style.display = "none";
     albumPopup.style.visibility = "visible";
     albumPopup.style.opacity = 1;
 }
 
 function closeAlbumPopup() {
+    navDiv.style.display = "flex";
     albumPopup.style.visibility = "hidden";
     albumPopup.style.opacity = 0;
     document.body.style.position = '';

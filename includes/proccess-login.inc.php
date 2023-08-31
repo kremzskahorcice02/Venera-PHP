@@ -7,12 +7,11 @@ if (isset($_POST['submit'])) {
     $pwd = $_POST['password'];
     
     $contr = new AdminContr($name,$pwd);
-    if ($contr->verifyLogin()) {
-        session_start();
-        $_SESSION['sessionId'] = $name;
-        $_SESSION["login_time_stamp"] = time();
-        header("location:..\admin.php");
-    }
+    $contr->verifyLogin();
+    session_start();
+    $_SESSION['loggedIn'] = true;
+    $_SESSION["login_time_stamp"] = time();
+    header("location:..\admin.php");
 } else {
     header("location: ..\login.php");
 }

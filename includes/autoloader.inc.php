@@ -1,11 +1,9 @@
 <?php
 
-spl_autoload_register('autoLoader');
-
 function autoLoader($classname) {
     $path = "classes/";
     $ext = ".class.php";
-    $fullPath = $path . $classname . $ext;
+    $fullPath = $fullPath = $path . strtolower($classname) . $ext;
 
     if (!file_exists($fullPath)) {
         return false;
@@ -13,3 +11,5 @@ function autoLoader($classname) {
 
     include_once $fullPath;
 }
+
+spl_autoload_register('autoLoader');

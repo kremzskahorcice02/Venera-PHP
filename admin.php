@@ -26,9 +26,8 @@
     <h2>Koncerty</h2>
     <?php
       if ($msg != null) {
-        echo '<p class="alert">' . $msq . '</p>' . $_SESSION['sessionId'] . ' ' . $_SESSION['login_time_stamp'];
+        echo '<p class="alert">' . $msq . '</p>';
       }
-      echo $_SESSION['sessionId'] . ' ' . $_SESSION['login_time_stamp'];
     ?>
     <div class="events-admin-btn">
         <a href="event-add.php">Přidat akci</a>

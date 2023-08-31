@@ -2,23 +2,19 @@
 
     class LoginUtil {
 
-        static function userlogged_in()
-        {
-            return(isset($_SESSION['sessionId']))?true:false;
+        static function userlogged_in() {
+            if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] === false) {
+                return false;
+            }
         }
 
         static function user_restricted() {
-            if (LoginUtil::userlogged_in()=== false)
-            {
-                header('Location: ..\login.php ');
-                exit();
-            } else if (time()-$_SESSION["login_time_stamp"] >3600) {
-                session_unset();
+            if (LoginUtil::userlogged_in()=== false || time()-$_SESSION["login_time_stamp"] >3600) {
+                $_SESSION = array();
                 session_destroy();
-                header("Location:login.php");
+                header('location: ..\login.php');
+                exit();
             }
         }
     }
-
-
 ?>

@@ -1,7 +1,20 @@
 <?php 
-    include 'includes/autoloader.inc.php';
-    include ("header.html")
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+    include './includes/autoloader.inc.php';
+    include_once ("header.html");
 ?>
+    <img id="navigation-icon" class="navMenu-icon" src="images/menu.svg" onclick="handleMenu()" alt="Menu icon">
+    <nav id="navigation" class="navMenu">
+        <a href="index.php#about-tag">O nás</a>
+        <a href="index.php#music-tag">Hudba</a>
+        <a onclick="showEventPopup()">Akce</a>
+        <a href="gallery.php#navigation">Galerie</a>
+        <a class="l" href="index.php#contact-tag">Kontakt</a>
+        <div class="dot"></div>
+    </nav>
+</div>
 <div id="events-tag" class="events-overlay">
     <div class="events-popup">
         <span class="events-close" onclick="closeEventPopup()">&times;</span>
@@ -87,14 +100,14 @@
     <p class="music-review" style="text-align: center;">„Českobudějovická kapela Venera na svém prvním albu z roku 2020 servíruje 
             vybrané pochoutky současného pojetí post-hardcore, grunge, space rockové 
             scény. Zároveň nezaměnitelným vokálem Tomáše "Čerta" Zadražila dělá z 
-            téhle party ostřílených muzikantů unikátní zjevení na tuzemské kluvobé 
+            téhle party ostřílených muzikantů unikátní zjevení na tuzemské klubové 
             scéně. Přirovnání k <span>HUM, Quicksand, Deftones či Smashing Pumpkins</span> je 
             namístě jen do chvíle, než vás pohltí obrazotvorný svět vokálních obratů 
             v českém jazyce, který funguje zároveň i jako nezaměnitelné poznávací 
             znamení. Amákovo Golden Hive Studios, kde bylo album natočeno , podtrhuje dynamiku 
             kytarových stěn skloubenou s dynamikou rytmiky v jeden celek. Byť přirovnání 
             může být návodem, Venera stejně tvoří s vlastní originální razancí, kterou 
-            podtrhuje český jazyk.“<span class="author">- Stanislav Polata</span></p>
+            podtrhuje český jazyk.“<span class="author">- album review, Stanislav Polata</span></p>
 </div>
 <div id="contact-tag" class="contact">
 <div>

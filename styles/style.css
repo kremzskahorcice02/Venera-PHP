@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: "Eras ITC", "Eras Bold ITC",  sans-serif ;
+    font-family: "Eras ITC",'Play', sans-serif;
     background-color: black;
     min-height: 1500px;
     color: #d7d7d7;
@@ -31,7 +31,7 @@ section:before {
     bottom: 0;
     width: 100%;
     height: 200px;
-    z-index: 10000;
+    z-index: 999;
 
 }
 
@@ -41,7 +41,7 @@ section:after {
     bottom: 0;
     width: 100%;
     height: 250px;
-    z-index: 10000;
+    z-index: 999;
     mix-blend-mode: color;
 }
 
@@ -104,12 +104,14 @@ section img {
 /*  NAVIGATION   */
 
 .navDiv {
+    background-color:transparent;
     width: 100%;
     position: fixed;
     top: 0;
     right: 0;
     display: flex;
     flex-direction: column;
+    z-index: 20000;
 }
 
 .navMenu-icon {
@@ -117,7 +119,7 @@ section img {
     align-self: flex-end;
     width: 2.5rem;
     aspect-ratio: 1 / 1;
-    margin: 10px;
+    margin-right: 5px;
 }
 
 .navMenu {
@@ -149,6 +151,7 @@ section img {
     text-transform: uppercase;
     font-weight: 500;
     height: fit-content;
+    cursor: pointer;
 }
 
 .navMenu .dot {
@@ -168,7 +171,6 @@ section img {
 .events-buttons p {
     font-size: 1.2rem;
     text-align: center;
-    font-weight: 500;
     padding: 10px;
     text-transform: uppercase;
     cursor: pointer;
@@ -176,7 +178,6 @@ section img {
 
 .events-info p {
     text-align: center;
-    font-weight: 500;
     margin-top: 30px;
 }
 
@@ -264,9 +265,10 @@ section img {
     width: 25px;
     height: auto;
     margin: 0 15px 15px auto;
+    cursor: pointer;
 }
 
-.events-overlay, .music-overlay {
+.events-overlay, .music-overlay, .gallery-overlay {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -278,10 +280,10 @@ section img {
     transition: opacity 500ms;
     visibility: hidden;
     opacity: 0;
-    z-index: 6;
+    z-index: 30000;
 }
 
-.events-popup, .music-popup {
+.events-popup, .music-popup, .gallery-popup {
     height: 100%;
     width: 100%;
     padding: 4em 2em 2em;
@@ -297,7 +299,7 @@ section img {
     justify-content: space-evenly;
 }
 
-.events-close, .music-close {
+.events-close, .music-close, .gallery-close {
     position: absolute;
     top: 20px;
     right: 30px;
@@ -306,8 +308,9 @@ section img {
     font-weight: bold;
     text-decoration: none;
     color: #474747;
+    cursor: pointer;
 }
-.events-close:hover, .music-close:hover {
+.events-close:hover, .music-close:hover, .gallery-close:hover {
     color: #FFA500;
 }
 
@@ -486,19 +489,15 @@ section img {
 /* GALLERY */
 
 #gallery {
-    
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3em;
-    justify-content: space-evenly;
     margin-top: 60px;
 }
 
 .gallery-container {
-    max-width:75%;
+    margin-bottom: 1rem;
     aspect-ratio : 1 / 1;
     border-radius: 2px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .gallery-container img {
@@ -513,10 +512,38 @@ section img {
     transition: transform 1s ease-out;
 }
 
+.gallery-popup {
+    background-color: #09090990;
+    padding: 5em 0 2em;
+}
+
+#gallery-popup-img {
+    display: block;
+    margin: 0 auto;
+    max-width: 90%;
+    max-height: 90%;
+    border: 1px solid black;
+}
+
 @media only screen and (min-width: 380px) {
 
     .events-none-text {
         font-size: 1rem;
+    }
+
+    #gallery {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+    }
+
+    #gallery::after {
+        content: "";
+        width: 45%;
+    }
+
+    .gallery-container {
+        width: 45%;
     }
 }
 
@@ -606,12 +633,12 @@ section img {
         width: 30px;
     }
 
-    #gallery {
-        padding: 2em;
-    }
+    #gallery::after {
+        width: 30%;
+      }
 
     .gallery-container {
-        width: 40%;
+        width: 30%;
     }
 
     .contact-title {
@@ -679,6 +706,10 @@ section img {
     .music-review {
         padding: 3.5em;
     }
+
+    .gallery-container {
+        margin-bottom: 1.5rem;
+    }
 }
 
 @media only screen and (min-width: 1000px) {
@@ -703,7 +734,7 @@ section img {
     .navMenu {
         display: flex;
         justify-content: center;
-        gap: 2em;
+        gap: 2.2em;
         padding: 50px 0;
     }
     
@@ -714,6 +745,7 @@ section img {
 
     .navMenu a:hover, .navMenu a:active {
         color: #FFA500;
+        transform: scale(1.1);
     }
     
  
@@ -907,37 +939,6 @@ section img {
         margin-bottom: 30px;
         text-align: center;
     }
-    
-    
-    
-    /* GALLERY */
-    
-    #gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 3em;
-        justify-content: space-evenly;
-        padding: 2em;
-    }
-    
-    .gallery-container {
-        width: 200px;
-        height: 200px;
-        border-radius: 2px;
-        overflow: hidden;
-    }
-    
-    .gallery-container img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .gallery-container img:hover {
-        transform: scale(1.1);
-        transition: transform 1s ease-out;
-    }
 }
 
 @media only screen and (min-width:1200px) {
@@ -970,6 +971,10 @@ section img {
 
     .music-popup img {
         width: 35%;
+    }
+
+    .gallery-container {
+        margin-bottom: 2rem;
     }
 }
 

@@ -14,10 +14,13 @@ class Admin extends Db{
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 return $result->fetch_assoc();
+            } else {
+                return null;
             }
         } catch (Exception $e) {
             echo $e->getMessage();
             header("location:..\login.php?error=noconn");
+            exit();
         }
     }
 

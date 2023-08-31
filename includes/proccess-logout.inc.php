@@ -1,8 +1,7 @@
 <?php
 include 'autoloader.inc.php';
     session_start();
+    $_SESSION['loggedIn'] = false;
     LoginUtil::user_restricted();
-    session_unset();
-    session_destroy();
-    header("Location: ..\login.php");
+    exit();
 ?>
